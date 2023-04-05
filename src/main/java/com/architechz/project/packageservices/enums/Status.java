@@ -1,7 +1,7 @@
 package com.architechz.project.packageservices.enums;
 
-public enum Estado {
+public enum Status {
 
-    EN_BODEGA, EN_CAMINO, ENTREGADO;
+    IN_WAREHOUSE, ON_THE_WAY, DELIVERED;
     
 }
