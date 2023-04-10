@@ -31,6 +31,13 @@ public class Warehouse {
     @NotBlank
     private String type;
 
+    public Warehouse(@NotBlank String address, @NotBlank double capacity, @NotBlank String type) {
+        this.address = address;
+        this.capacity = capacity;
+        this.type = type;
+        this.inventory = new ArrayList<>();
+    }
+
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Package> inventory;
