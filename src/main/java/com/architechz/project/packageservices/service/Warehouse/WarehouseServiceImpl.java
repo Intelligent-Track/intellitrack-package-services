@@ -69,7 +69,7 @@ public class WarehouseServiceImpl implements WarehouseService {
             return e.toString();// TODO: handle exception
         }
         
-        return "Usuario actualizado con exito!!";
+        return "Bodega actualizada con exito!!";
 
 
     }
