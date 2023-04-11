@@ -1,5 +1,6 @@
 package com.architechz.project.packageservices.models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class Warehouse {
     private Long id;
 
     @NotBlank
+    private String city;
+
+    @NotBlank
     private String address;
 
     @NotBlank
@@ -30,6 +34,9 @@ public class Warehouse {
 
     @NotBlank
     private String type;
+
+    @NotBlank
+    private BigDecimal costPerM3;
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -39,11 +46,14 @@ public class Warehouse {
         this.inventory = new ArrayList<>();
     }
 
-    public Warehouse(Long id, @NotBlank String address, @NotBlank double capacity, @NotBlank String type) {
+    public Warehouse(Long id, @NotBlank String city, @NotBlank String address, @NotBlank double capacity,
+            @NotBlank String type, @NotBlank BigDecimal costPerM3) {
         this.id = id;
+        this.city = city;
         this.address = address;
         this.capacity = capacity;
         this.type = type;
+        this.costPerM3 = costPerM3;
         this.inventory = new ArrayList<>();
     }
 
@@ -53,6 +63,14 @@ public class Warehouse {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getAddress() {
@@ -77,6 +95,22 @@ public class Warehouse {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public BigDecimal getCostPerM3() {
+        return costPerM3;
+    }
+
+    public void setCostPerM3(BigDecimal costPerM3) {
+        this.costPerM3 = costPerM3;
+    }
+
+    public List<Package> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Package> inventory) {
+        this.inventory = inventory;
     }
 
 }
