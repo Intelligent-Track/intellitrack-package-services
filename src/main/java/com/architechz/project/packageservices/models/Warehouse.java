@@ -1,5 +1,6 @@
 package com.architechz.project.packageservices.models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -22,14 +25,22 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
     @NotBlank
     private String address;
 
     @NotBlank
     private double capacity;
 
+    @OneToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
+
     @NotBlank
-    private String type;
+    private BigDecimal costPerM3;
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -39,11 +50,14 @@ public class Warehouse {
         this.inventory = new ArrayList<>();
     }
 
-    public Warehouse(Long id, @NotBlank String address, @NotBlank double capacity, @NotBlank String type) {
+    public Warehouse(Long id, @NotBlank City city, @NotBlank String address, @NotBlank double capacity,
+            @NotBlank Type type, @NotBlank BigDecimal costPerM3) {
         this.id = id;
+        this.city = city;
         this.address = address;
         this.capacity = capacity;
         this.type = type;
+        this.costPerM3 = costPerM3;
         this.inventory = new ArrayList<>();
     }
 
@@ -53,6 +67,14 @@ public class Warehouse {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getAddress() {
@@ -71,12 +93,28 @@ public class Warehouse {
         this.capacity = capacity;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
+    }
+
+    public BigDecimal getCostPerM3() {
+        return costPerM3;
+    }
+
+    public void setCostPerM3(BigDecimal costPerM3) {
+        this.costPerM3 = costPerM3;
+    }
+
+    public List<Package> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Package> inventory) {
+        this.inventory = inventory;
     }
 
 }
