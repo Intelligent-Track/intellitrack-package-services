@@ -1,8 +1,11 @@
 package com.architechz.project.packageservices.service.Package;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import com.architechz.project.packageservices.models.Package;
+
 public interface PackageService {
+
+    public List<Package> listAllPackages();
     
 }

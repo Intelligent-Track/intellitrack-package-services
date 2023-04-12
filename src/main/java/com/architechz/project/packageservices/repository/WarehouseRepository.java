@@ -10,7 +10,7 @@ import com.architechz.project.packageservices.models.Warehouse;
 @Repository
 public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
 
-    public List<Warehouse> findByCity(String city);
-    public List<Warehouse> findByType(String type);
-    
+    public List<Warehouse> findByCityId(Long idCity);
+    public List<Warehouse> findByTypeId(Long idType);
+
 }

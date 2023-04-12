@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -23,8 +25,9 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String city;
+    @OneToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @NotBlank
     private String address;
@@ -32,8 +35,9 @@ public class Warehouse {
     @NotBlank
     private double capacity;
 
-    @NotBlank
-    private String type;
+    @OneToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
 
     @NotBlank
     private BigDecimal costPerM3;
@@ -46,8 +50,8 @@ public class Warehouse {
         this.inventory = new ArrayList<>();
     }
 
-    public Warehouse(Long id, @NotBlank String city, @NotBlank String address, @NotBlank double capacity,
-            @NotBlank String type, @NotBlank BigDecimal costPerM3) {
+    public Warehouse(Long id, @NotBlank City city, @NotBlank String address, @NotBlank double capacity,
+            @NotBlank Type type, @NotBlank BigDecimal costPerM3) {
         this.id = id;
         this.city = city;
         this.address = address;
@@ -65,11 +69,11 @@ public class Warehouse {
         this.id = id;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -89,11 +93,11 @@ public class Warehouse {
         this.capacity = capacity;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

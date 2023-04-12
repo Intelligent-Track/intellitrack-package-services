@@ -6,14 +6,34 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.architechz.project.packageservices.models.City;
+import com.architechz.project.packageservices.models.Type;
 import com.architechz.project.packageservices.models.Warehouse;
+import com.architechz.project.packageservices.repository.CityRepository;
+import com.architechz.project.packageservices.repository.TypeRepository;
 import com.architechz.project.packageservices.repository.WarehouseRepository;
 
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
 
     @Autowired
+    CityRepository cityRepository;
+
+    @Autowired
+    TypeRepository typeRepository;
+
+    @Autowired
     WarehouseRepository warehouseRepository;
+
+    @Override
+    public List<City> listAllCities() {
+        return cityRepository.findAll();
+    }
+
+    @Override
+    public List<Type> listAllTypes() {
+        return typeRepository.findAll();
+    }
 
     @Override
     public List<Warehouse> listAllWarehouses() {
@@ -21,13 +41,13 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public List<Warehouse> listAllWarehousesByCity(String city) {
-        return this.warehouseRepository.findByCity(city);
+    public List<Warehouse> listAllWarehousesByCity(Long idCity) {
+        return this.warehouseRepository.findByCityId(idCity);
     }
 
     @Override
-    public List<Warehouse> listAllWarehousesByType(String type) {
-        return this.warehouseRepository.findByType(type);
+    public List<Warehouse> listAllWarehousesByType(Long idType) {
+        return this.warehouseRepository.findByTypeId(idType);
     }
 
     @Override

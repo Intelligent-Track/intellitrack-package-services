@@ -2,13 +2,17 @@ package com.architechz.project.packageservices.service.Warehouse;
 
 import java.util.List;
 
+import com.architechz.project.packageservices.models.City;
+import com.architechz.project.packageservices.models.Type;
 import com.architechz.project.packageservices.models.Warehouse;
 
 public interface WarehouseService {
     
+    public List<City> listAllCities();
+    public List<Type> listAllTypes();
     public List<Warehouse> listAllWarehouses();
-    public List<Warehouse> listAllWarehousesByCity(String city);
-    public List<Warehouse> listAllWarehousesByType(String type);
+    public List<Warehouse> listAllWarehousesByCity(Long idCity);
+    public List<Warehouse> listAllWarehousesByType(Long idType);
     public List<Warehouse> listAllWarehousesByCapacity(double capacity);
 
 }
