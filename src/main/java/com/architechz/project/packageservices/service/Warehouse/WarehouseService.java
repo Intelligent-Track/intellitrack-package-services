@@ -10,6 +10,7 @@ public interface WarehouseService {
     
     public List<City> listAllCities();
     public List<Type> listAllTypes();
+    public Warehouse findById(Long id);
     public List<Warehouse> listAllWarehouses();
     public List<Warehouse> listAllWarehousesByCity(Long idCity);
     public List<Warehouse> listAllWarehousesByType(Long idType);

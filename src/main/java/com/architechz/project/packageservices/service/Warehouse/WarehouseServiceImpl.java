@@ -36,6 +36,11 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
+    public Warehouse findById(Long id) {
+        return this.warehouseRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public List<Warehouse> listAllWarehouses() {
         return this.warehouseRepository.findAll();
     }
