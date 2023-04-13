@@ -32,6 +32,11 @@ public class WarehouseController {
         return this.warehouseService.listAllTypes();
     }
 
+    @GetMapping("/warehouse/{id}")
+    public Warehouse getWarehouseById(@PathVariable("id") Long id){
+        return this.warehouseService.findById(id);
+    }
+
     @GetMapping("/allWarehouses")
     public List<Warehouse> getAllWarehouses() {
         return this.warehouseService.listAllWarehouses();
