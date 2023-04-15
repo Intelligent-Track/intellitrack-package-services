@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.architechz.project.packageservices.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,16 +32,20 @@ public class Delivery {
     @NotBlank
     private String destination;
 
-    @NotBlank
     private Date departureDate;
 
+    private Date arriveDate;
+
     @NotBlank
+    private String type;
+
+    @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal costPerTon;
 
-    @NotBlank
+    @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal travelCost;
 
-    @NotBlank
+    @NotNull
     private Status status;
 
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
@@ -49,15 +55,17 @@ public class Delivery {
     public Delivery() {
     }
 
-    public Delivery(Long id, @NotBlank String origin, @NotBlank String destination, @NotBlank Date departureDate,
-            @NotBlank BigDecimal costPerTon, @NotBlank BigDecimal travelCost, @NotBlank Status status) {
+    public Delivery(Long id, @NotBlank String origin, @NotBlank String destination, @NotNull Date departureDate, @NotNull Date arriveDate,
+            BigDecimal costPerTon, BigDecimal travelCost, @NotNull Status status, @NotBlank String type) {
         this.id = id;
         this.origin = origin;
         this.destination = destination;
         this.departureDate = departureDate;
+        this.arriveDate = arriveDate;
         this.costPerTon = costPerTon;
         this.travelCost = travelCost;
         this.status = status;
+        this.type = type;
     }
 
     public Long getId() {
@@ -115,5 +123,16 @@ public class Delivery {
     public void setStatus(Status status) {
         this.status = status;
     }
-    
+
+    public Date getArriveDate() {return arriveDate;}
+
+    public void setArriveDate(Date arriveDate) {this.arriveDate = arriveDate;}
+
+    public String getType() {return type;}
+
+    public void setType(String type) {this.type = type;}
+
+    public void setArticles(List<Package> packages) {
+
+    }
 }

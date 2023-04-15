@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.architechz.project.packageservices.models.Package;
 
+import java.util.List;
+
 @Repository
 public interface PackageRepository extends JpaRepository<Package, Long> {
-    
+
+    public List<Package> findAllByDeliveryId(Long id);
 }
