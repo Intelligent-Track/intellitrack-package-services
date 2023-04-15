@@ -1,14 +1,11 @@
 package com.architechz.project.packageservices.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "package")
@@ -17,11 +14,9 @@ public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @NotBlank
+
     private double weight;
 
-    @NotBlank
     private double volume;
 
     @NotBlank
@@ -35,13 +30,14 @@ public class Package {
     private Warehouse warehouse;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn(name = "delivery_id")
+    //@JsonIgnore
     private Delivery delivery;
 
     public Package() {
     }
 
-    public Package(Long id, @NotBlank double weight, @NotBlank double volume, @NotBlank String location,
+    public Package(Long id, double weight, double volume, @NotBlank String location,
             @NotBlank String type) {
         this.id = id;
         this.weight = weight;
@@ -90,4 +86,15 @@ public class Package {
         this.type = type;
     }
 
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
+
+    public void setDeliveryCost(BigDecimal divide) {
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 }

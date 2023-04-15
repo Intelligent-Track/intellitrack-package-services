@@ -18,5 +18,10 @@ public class PackageServiceImpl implements PackageService {
     public List<Package> listAllPackages() {
         return packageRepository.findAll();
     }
-    
+
+    @Override
+    public List<Package> listAllPackagesByDeliveryId(Long id) {
+        return packageRepository.findAllByDeliveryId(id);
+    }
+
 }
