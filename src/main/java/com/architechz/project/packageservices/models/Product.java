@@ -18,7 +18,7 @@ public class Product {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
-    public void Product(String category, double weight, double volume, String name) {
+    public Product(String category, double weight, double volume, String name) {
         this.category = category;
         this.weight = weight;
         this.volume = volume;

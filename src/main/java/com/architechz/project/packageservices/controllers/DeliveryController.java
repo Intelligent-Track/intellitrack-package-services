@@ -2,7 +2,6 @@ package com.architechz.project.packageservices.controllers;
 
 import com.architechz.project.packageservices.models.Delivery;
 import com.architechz.project.packageservices.models.Product;
-import com.architechz.project.packageservices.models.Warehouse;
 import com.architechz.project.packageservices.service.Delivery.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
