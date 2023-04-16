@@ -3,10 +3,7 @@ package com.architechz.project.packageservices.service.Delivery;
 import com.architechz.project.packageservices.enums.Status;
 import com.architechz.project.packageservices.models.*;
 import com.architechz.project.packageservices.models.Package;
-import com.architechz.project.packageservices.repository.CityRepository;
-import com.architechz.project.packageservices.repository.DeliveryRepository;
-import com.architechz.project.packageservices.repository.PackageRepository;
-import com.architechz.project.packageservices.repository.WarehouseRepository;
+import com.architechz.project.packageservices.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +28,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Autowired
     private WarehouseRepository warehouseRepository;
 
+    @Autowired
+    private ProductRespository productRespository;
+
     @Override
     public BigDecimal programDelivery(Long originId,
                                       Long desinationId,
@@ -41,7 +41,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         Optional<City> originCity = cityRepository.findById(originId);
         Optional<City> destinationCity = cityRepository.findById(desinationId);
 
-        Optional<Warehouse> warehouse = warehouseRepository.findById(originId);
+
+        List<Warehouse> warehouses = warehouseRepository.findByCityId(originId);
+        Warehouse warehouse = warehouses.get(0);
 
         List<Package> packages = new ArrayList<>();
         BigDecimal totalWeight = BigDecimal.ZERO;
@@ -51,7 +53,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             packageItem.setType(product.getCategory());
             packageItem.setVolume(product.getVolume());
             packageItem.setLocation(originCity.get().getName());
-            packageItem.setWarehouse(warehouse.get());
+            packageItem.setWarehouse(warehouse);
             packages.add(packageItem);
             totalWeight = totalWeight.add(BigDecimal.valueOf(product.getWeight()));
         }
@@ -71,15 +73,25 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setArticles(packages);
 
         List<Package> savedPackages = packageRepository.saveAll(packages);
-        for (Package packageItem : savedPackages) {
-            packageItem.setDelivery(delivery);
-            packageItem.setDeliveryCost(deliveryCost.divide(BigDecimal.valueOf(savedPackages.size())));
+        for (int i = 0; i < savedPackages.size(); i++) {
+            savedPackages.get(i).setDelivery(delivery);
+            savedPackages.get(i).setDeliveryCost(deliveryCost.divide(BigDecimal.valueOf(savedPackages.size())));
+            packages.set(i, savedPackages.get(i)); // actualizar lista original
         }
 
         delivery = deliveryRepository.save(delivery);
         for (Package packageItem : packages) {
             packageItem = packageRepository.save(packageItem);
         }
+
+        for (Product product : products) {
+            Long lastId = productRespository.getLastId(); // Obtener último id guardado
+            Long newId = lastId != null ? lastId + 1 : 1; // Sumar uno al último id o asignar 1 si es el primer producto
+            product.setId(newId); // Asignar nuevo id al producto
+            product.setDelivery(delivery);
+            productRespository.save(product);
+        }
+
         return deliveryCost;
     }
 

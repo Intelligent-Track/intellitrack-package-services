@@ -1,8 +1,6 @@
 package com.architechz.project.packageservices.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
@@ -15,6 +13,10 @@ public class Product {
     private double weight;
     private double volume;
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
 
     public void Product(String category, double weight, double volume, String name) {
         this.category = category;
@@ -62,4 +64,9 @@ public class Product {
     public Long getId() {
         return id;
     }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
 }

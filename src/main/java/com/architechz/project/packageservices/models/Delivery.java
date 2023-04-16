@@ -49,6 +49,9 @@ public class Delivery {
     private Status status;
 
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    private List<Product> products;
+
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Package> articles;
 
@@ -131,6 +134,14 @@ public class Delivery {
     public String getType() {return type;}
 
     public void setType(String type) {this.type = type;}
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public void setArticles(List<Package> packages) {
 
