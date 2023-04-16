@@ -20,6 +20,7 @@ public class WebSecurityConfig {
         .authorizeRequests().antMatchers("/api/pack/**").permitAll()
         .antMatchers("/api/ware/**").permitAll()
         .antMatchers("/api/del/**").permitAll()
+        .antMatchers("/api/vehi/**").permitAll()
         .anyRequest().authenticated();
     
     return http.build();
