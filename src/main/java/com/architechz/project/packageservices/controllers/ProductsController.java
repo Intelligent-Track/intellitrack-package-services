@@ -1,8 +1,6 @@
 package com.architechz.project.packageservices.controllers;
 
-import com.architechz.project.packageservices.models.Package;
 import com.architechz.project.packageservices.models.Product;
-import com.architechz.project.packageservices.service.Package.PackageService;
 import com.architechz.project.packageservices.service.Product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

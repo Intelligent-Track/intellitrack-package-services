@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.architechz.project.packageservices.models.Package;
 import com.architechz.project.packageservices.models.Vehicle;
 import com.architechz.project.packageservices.payload.InsertionRequest.VehicleRequest;
 import com.architechz.project.packageservices.payload.response.MessageResponse;
 
-import com.architechz.project.packageservices.service.*;
 import com.architechz.project.packageservices.service.Vehicle.VehicleService;
 
 @RestController

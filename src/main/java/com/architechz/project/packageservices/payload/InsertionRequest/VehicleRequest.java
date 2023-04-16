@@ -1,86 +1,75 @@
 package com.architechz.project.packageservices.payload.InsertionRequest;
 
-import javax.validation.constraints.*;
-
-
 public class VehicleRequest {
 
-        private String model;
-    
-        private int plate;
-    
-        private String type;
+    private String model;
 
-        private String failureHistory;
-    
-        private String mechanicHistory;
+    private int plate;
 
-        private int volumeCapacity;
+    private String type;
 
-        private int weightCapacity;
+    private String failureHistory;
 
-        public String getModel() {
-            return model;
-        }
+    private String mechanicHistory;
 
-        public void setModel(String model) {
-            this.model = model;
-        }
+    private int volumeCapacity;
 
-        public int getPlate() {
-            return plate;
-        }
+    private int weightCapacity;
 
-        public void setPlate(int plate) {
-            this.plate = plate;
-        }
+    public String getModel() {
+        return model;
+    }
 
-        public String getType() {
-            return type;
-        }
+    public void setModel(String model) {
+        this.model = model;
+    }
 
-        public void setType(String type) {
-            this.type = type;
-        }
+    public int getPlate() {
+        return plate;
+    }
 
-        public String getFailureHistory() {
-            return failureHistory;
-        }
+    public void setPlate(int plate) {
+        this.plate = plate;
+    }
 
-        public void setFailureHistory(String failureHistory) {
-            this.failureHistory = failureHistory;
-        }
+    public String getType() {
+        return type;
+    }
 
-        public String getMechanicHistory() {
-            return mechanicHistory;
-        }
+    public void setType(String type) {
+        this.type = type;
+    }
 
-        public void setMechanicHistory(String mechanicHistory) {
-            this.mechanicHistory = mechanicHistory;
-        }
+    public String getFailureHistory() {
+        return failureHistory;
+    }
 
-        public int getVolumeCapacity() {
-            return volumeCapacity;
-        }
+    public void setFailureHistory(String failureHistory) {
+        this.failureHistory = failureHistory;
+    }
 
-        public void setVolumeCapacity(int volumeCapacity) {
-            this.volumeCapacity = volumeCapacity;
-        }
+    public String getMechanicHistory() {
+        return mechanicHistory;
+    }
 
-        public int getWeightCapacity() {
-            return weightCapacity;
-        }
+    public void setMechanicHistory(String mechanicHistory) {
+        this.mechanicHistory = mechanicHistory;
+    }
 
-        public void setWeightCapacity(int weightCapacity) {
-            this.weightCapacity = weightCapacity;
-        }
+    public int getVolumeCapacity() {
+        return volumeCapacity;
+    }
 
-        
-    
+    public void setVolumeCapacity(int volumeCapacity) {
+        this.volumeCapacity = volumeCapacity;
+    }
 
-        
+    public int getWeightCapacity() {
+        return weightCapacity;
+    }
 
+    public void setWeightCapacity(int weightCapacity) {
+        this.weightCapacity = weightCapacity;
+    }
 
-    
 }
-

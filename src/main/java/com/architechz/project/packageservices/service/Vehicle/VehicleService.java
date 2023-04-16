@@ -2,8 +2,6 @@ package com.architechz.project.packageservices.service.Vehicle;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import com.architechz.project.packageservices.models.*;
 import com.architechz.project.packageservices.payload.InsertionRequest.VehicleRequest;
 
@@ -14,11 +12,5 @@ public interface VehicleService {
     public abstract String addVehicle(VehicleRequest vehicle);
     public abstract String deleteVehicle(int plate);
     public abstract String updateVehicle(Vehicle vehicle);
-
-
-
-
-
-
     
 }

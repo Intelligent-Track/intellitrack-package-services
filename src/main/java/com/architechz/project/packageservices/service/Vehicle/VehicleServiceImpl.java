@@ -6,11 +6,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.architechz.project.packageservices.controllers.VehicleController;
 import com.architechz.project.packageservices.models.*;
 import com.architechz.project.packageservices.payload.InsertionRequest.VehicleRequest;
 import com.architechz.project.packageservices.repository.*;
-import com.architechz.project.packageservices.service.*;
 
 
 @Service
@@ -64,9 +62,5 @@ public class VehicleServiceImpl implements VehicleService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateVehicle'");
     }
-
-
-    
-    
 
 }
