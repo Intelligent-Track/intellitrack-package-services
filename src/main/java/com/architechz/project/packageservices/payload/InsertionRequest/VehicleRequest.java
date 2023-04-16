@@ -5,31 +5,33 @@ import javax.validation.constraints.*;
 
 public class VehicleRequest {
 
-        private String name;
+        private String model;
     
-        private String plate;
+        private int plate;
     
         private String type;
-    
-        private double capacity;
 
-        private String region;
+        private String failureHistory;
     
-        private String description;
+        private String mechanicHistory;
 
-        public String getName() {
-            return name;
+        private int volumeCapacity;
+
+        private int weightCapacity;
+
+        public String getModel() {
+            return model;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setModel(String model) {
+            this.model = model;
         }
 
-        public String getPlate() {
+        public int getPlate() {
             return plate;
         }
 
-        public void setPlate(String plate) {
+        public void setPlate(int plate) {
             this.plate = plate;
         }
 
@@ -41,29 +43,40 @@ public class VehicleRequest {
             this.type = type;
         }
 
-        public double getCapacity() {
-            return capacity;
+        public String getFailureHistory() {
+            return failureHistory;
         }
 
-        public void setCapacity(double capacity) {
-            this.capacity = capacity;
+        public void setFailureHistory(String failureHistory) {
+            this.failureHistory = failureHistory;
         }
 
-        public String getRegion() {
-            return region;
+        public String getMechanicHistory() {
+            return mechanicHistory;
         }
 
-        public void setRegion(String region) {
-            this.region = region;
+        public void setMechanicHistory(String mechanicHistory) {
+            this.mechanicHistory = mechanicHistory;
         }
 
-        public String getDescription() {
-            return description;
+        public int getVolumeCapacity() {
+            return volumeCapacity;
         }
 
-        public void setDescription(String description) {
-            this.description = description;
+        public void setVolumeCapacity(int volumeCapacity) {
+            this.volumeCapacity = volumeCapacity;
         }
+
+        public int getWeightCapacity() {
+            return weightCapacity;
+        }
+
+        public void setWeightCapacity(int weightCapacity) {
+            this.weightCapacity = weightCapacity;
+        }
+
+        
+    
 
         
 

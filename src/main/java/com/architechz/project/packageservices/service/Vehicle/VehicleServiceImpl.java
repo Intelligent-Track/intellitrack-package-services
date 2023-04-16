@@ -1,6 +1,8 @@
 package com.architechz.project.packageservices.service.Vehicle;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class VehicleServiceImpl implements VehicleService {
             return "Error: La placa " + vehicle.getPlate() + " ya existe en nuestras bases de datos!";
         } else {
             try {
-                Vehicle newVehicle = new Vehicle(vehicle.getPlate(), vehicle.getName(), vehicle.getType(), vehicle.getCapacity(), vehicle.getRegion(), vehicle.getDescription());
+                Vehicle newVehicle = new Vehicle(vehicle.getModel(), vehicle.getPlate(), vehicle.getType(), vehicle.getFailureHistory(), vehicle.getMechanicHistory(), vehicle.getVolumeCapacity(), vehicle.getWeightCapacity());
                 vehicleRepository.save(newVehicle);
             } catch (Exception e) {
                 return e.toString();
@@ -42,18 +44,19 @@ public class VehicleServiceImpl implements VehicleService {
         }
     }
 
-    @Override
-    public String deleteVehicle(VehicleRequest vehicle) {
-        if (vehicleRepository.existsByPlate(vehicle.getPlate())) {
-            try {
-                vehicleRepository.deleteByPlate(vehicle.getPlate());
-            } catch (Exception e) {
-                return e.toString();
-            }
-            return "Vehículo eliminado con éxito";
-        } else {
-            return "Error: La placa " + vehicle.getPlate() + " no existe en nuestras bases de datos";
+    @Transactional
+    public String deleteVehicle(int plate) {
+        try {
+            
+            vehicleRepository.deleteByPlate(plate);
+
+
+        } catch (Exception e) {
+            return e.toString();// TODO: handle exception
         }
+
+
+        return "Vehiculo con placa " + plate +" borrado con exito!";
     }
 
     @Override

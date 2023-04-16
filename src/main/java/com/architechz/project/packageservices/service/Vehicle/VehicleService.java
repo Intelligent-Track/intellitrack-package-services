@@ -12,7 +12,7 @@ public interface VehicleService {
     public List<Vehicle> listAllVehicles();
     public Vehicle findById(Long id);
     public abstract String addVehicle(VehicleRequest vehicle);
-    public abstract String deleteVehicle(VehicleRequest vehicle);
+    public abstract String deleteVehicle(int plate);
     public abstract String updateVehicle(Vehicle vehicle);
 
 

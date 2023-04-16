@@ -19,83 +19,109 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-        private String name;
+        private String model;
     
-        private String plate;
+        private int plate;
     
         private String type;
-    
-        private double capacity;
 
-        private String region;
+        private String failureHistory;
     
-        private String description;
+        private String mechanicHistory;
 
-        
-        public Vehicle(String name, String plate, String type,
-                double capacity, String region, String description) {
-            this.name = name;
+        private int volumeCapacity;
+
+        private int weightCapacity;
+
+        public Vehicle(String model, int plate, String type, String failureHistory, String mechanicHistory,
+                int volumeCapacity, int weightCapacity) {
+            this.model = model;
             this.plate = plate;
             this.type = type;
-            this.capacity = capacity;
-            this.region = region;
-            this.description = description;
+            this.failureHistory = failureHistory;
+            this.mechanicHistory = mechanicHistory;
+            this.volumeCapacity = volumeCapacity;
+            this.weightCapacity = weightCapacity;
         }
-
-        
 
         public Vehicle() {
         }
 
-
-
-        public String getName() {
-            return name;
+        public Long getId() {
+            return id;
         }
-    
-        public void setName(String name) {
-            this.name = name;
+
+        public void setId(Long id) {
+            this.id = id;
         }
-    
-        public String getPlate() {
+
+        public String getModel() {
+            return model;
+        }
+
+        public void setModel(String model) {
+            this.model = model;
+        }
+
+        public int getPlate() {
             return plate;
         }
-    
-        public void setPlate(String plate) {
+
+        public void setPlate(int plate) {
             this.plate = plate;
         }
-    
+
         public String getType() {
             return type;
         }
-    
+
         public void setType(String type) {
             this.type = type;
         }
-    
-        public double getCapacity() {
-            return capacity;
-        }
-    
-        public void setCapacity(double capacity) {
-            this.capacity = capacity;
+
+        public String getFailureHistory() {
+            return failureHistory;
         }
 
-        public String getRegion() {
-            return region;
+        public void setFailureHistory(String failureHistory) {
+            this.failureHistory = failureHistory;
         }
+
+        public String getMechanicHistory() {
+            return mechanicHistory;
+        }
+
+        public void setMechanicHistory(String mechanicHistory) {
+            this.mechanicHistory = mechanicHistory;
+        }
+
+        public int getVolumeCapacity() {
+            return volumeCapacity;
+        }
+
+        public void setVolumeCapacity(int volumeCapacity) {
+            this.volumeCapacity = volumeCapacity;
+        }
+
+        public int getWeightCapacity() {
+            return weightCapacity;
+        }
+
+        public void setWeightCapacity(int weightCapacity) {
+            this.weightCapacity = weightCapacity;
+        }
+
+        
+
+        
+
+        
+
+        
     
-        public void setRegion(String region) {
-            this.region = region;
-        }
-    
-        public String getDescription() {
-            return description;
-        }
-    
-        public void setDescription(String description) {
-            this.description = description;
-        }
+
+        
+        
     }
     
 
