@@ -14,4 +14,6 @@ public interface DeliveryService {
 
     public abstract List<Delivery> listAllDeliverys();
 
+    public String deleteDelivery(Delivery delivery);
+
 }
