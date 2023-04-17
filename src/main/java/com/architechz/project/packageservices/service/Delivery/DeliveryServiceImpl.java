@@ -59,8 +59,8 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
 
         BigDecimal costPerTon = BigDecimal.valueOf(100000);
-        BigDecimal travelCost = BigDecimal.valueOf(500000);
-        BigDecimal deliveryCost = costPerTon.multiply(totalWeight).add(travelCost);
+        BigDecimal deliveryCost = BigDecimal.valueOf(500000);
+        BigDecimal travelCost = costPerTon.multiply(totalWeight).add(deliveryCost);
 
         Delivery delivery = new Delivery();
         delivery.setOrigin(originCity.get().getName());
@@ -92,7 +92,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             productRespository.save(product);
         }
 
-        return deliveryCost;
+        return travelCost;
     }
 
     @Override
