@@ -31,7 +31,6 @@ public class Package {
 
     @ManyToOne
     @JoinColumn(name = "delivery_id")
-    //@JsonIgnore
     private Delivery delivery;
 
     public Package() {
