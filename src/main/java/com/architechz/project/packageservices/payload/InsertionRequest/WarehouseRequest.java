@@ -14,7 +14,7 @@ import java.util.List;
 
 public class WarehouseRequest {
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
 
@@ -24,7 +24,7 @@ public class WarehouseRequest {
     
     private double capacity;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "type_id")
     private Type type;
 
