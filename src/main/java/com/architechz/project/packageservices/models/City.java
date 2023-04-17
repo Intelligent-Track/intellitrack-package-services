@@ -1,10 +1,13 @@
 package com.architechz.project.packageservices.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -21,9 +24,9 @@ public class City {
     @NotBlank
     private String name;
 
-    @OneToOne(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Warehouse warehouse;
+    private List<Warehouse> warehouses;
 
     public City() {
     }
@@ -47,6 +50,14 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Warehouse> getWarehouses() {
+        return warehouses;
+    }
+
+    public void setWarehouses(List<Warehouse> warehouses) {
+        this.warehouses = warehouses;
     }
 
 }
