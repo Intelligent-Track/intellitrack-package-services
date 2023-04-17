@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
@@ -93,6 +95,24 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
 
         return travelCost;
+    }
+
+    @Transactional
+    public String deleteDelivery(Delivery delivery){
+        try {
+            
+            deliveryRepository.deleteById(delivery.getId());
+
+
+        } catch (Exception e) {
+            return e.toString();
+        }
+        
+
+
+        return "Envío con id " + delivery.getId() +"  ha sido borrado con exito!";
+
+
     }
 
     @Override
