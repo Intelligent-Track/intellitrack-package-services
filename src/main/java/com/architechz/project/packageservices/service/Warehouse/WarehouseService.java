@@ -5,9 +5,13 @@ import java.util.List;
 import com.architechz.project.packageservices.models.City;
 import com.architechz.project.packageservices.models.Type;
 import com.architechz.project.packageservices.models.Warehouse;
+import com.architechz.project.packageservices.payload.InsertionRequest.WarehouseRequest;
 
 public interface WarehouseService {
     
+    public abstract String addWarehouse(WarehouseRequest warehouseRequest);
+    public abstract String deleteWarehouse(WarehouseRequest warehouseRequest);
+    public abstract String editWarehouse(Warehouse warehouse);
     public List<City> listAllCities();
     public List<Type> listAllTypes();
     public Warehouse findById(Long id);
