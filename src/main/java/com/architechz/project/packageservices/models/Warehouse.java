@@ -32,14 +32,13 @@ public class Warehouse {
     @NotBlank
     private String address;
 
-    @NotBlank
     private double capacity;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
     private Type type;
 
-    @NotBlank
+    
     private BigDecimal costPerM3;
 
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
@@ -47,6 +46,16 @@ public class Warehouse {
     private List<Package> inventory;
 
     public Warehouse() {
+        this.inventory = new ArrayList<>();
+    }
+
+    public Warehouse(@NotBlank City city, @NotBlank String address,double capacity,
+            @NotBlank Type type, @NotBlank BigDecimal costPerM3) {
+        this.city = city;
+        this.address = address;
+        this.capacity = capacity;
+        this.type = type;
+        this.costPerM3 = costPerM3;
         this.inventory = new ArrayList<>();
     }
 
