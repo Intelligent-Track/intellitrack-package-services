@@ -7,7 +7,9 @@ public class Quotation {
     private City originCity;
     private City destinationCity;
     private float weight;
-    private String date;
+    private String originDate;
+    private String destinationDate;
+    private int volume;
 
     public String getLoadType() {
         return loadType;
@@ -33,21 +35,37 @@ public class Quotation {
     public void setWeight(float weight) {
         this.weight = weight;
     }
-    public String getDate() {
-        return date;
+    public String getOriginDate() {
+        return originDate;
     }
-    public void setDate(String date) {
-        this.date = date;
+    public void setOriginDate(String originDate) {
+        this.originDate = originDate;
     }
-    public Quotation(String loadType, City originCity, City destinationCity, float weight, String date) {
+    public String getDestinationDate() {
+        return destinationDate;
+    }
+    public void setDestinationDate(String destinationDate) {
+        this.destinationDate = destinationDate;
+    }
+    public int getVolume() {
+        return volume;
+    }
+    public void setVolume(int volume) {
+        this.volume = volume;
+    }
+    public Quotation(String loadType, City originCity, City destinationCity, float weight, String originDate,
+            String destinationDate, int volume) {
         this.loadType = loadType;
         this.originCity = originCity;
         this.destinationCity = destinationCity;
         this.weight = weight;
-        this.date = date;
+        this.originDate = originDate;
+        this.destinationDate = destinationDate;
+        this.volume = volume;
     }
-    public Quotation() {
-    }
+    
+
+ 
 
 
     

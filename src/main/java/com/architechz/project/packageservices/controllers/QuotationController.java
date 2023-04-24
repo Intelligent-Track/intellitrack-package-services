@@ -1,6 +1,7 @@
 package com.architechz.project.packageservices.controllers;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,7 +37,8 @@ public class QuotationController {
     }
 
     @PostMapping("/quoteDelivery")
-    public float getPrice(@Valid @RequestBody QuotationRequest quotationRequest) {
+    public BigDecimal getPrice(@Valid @RequestBody QuotationRequest quotationRequest) {
+      System.out.println(quotationService.getPrice(quotationRequest));
       return quotationService.getPrice(quotationRequest);
     }
     
