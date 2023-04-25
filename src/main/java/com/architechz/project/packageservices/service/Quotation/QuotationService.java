@@ -1,6 +1,7 @@
 package com.architechz.project.packageservices.service.Quotation;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.architechz.project.packageservices.models.City;
@@ -9,5 +10,5 @@ import com.architechz.project.packageservices.payload.InsertionRequest.Quotation
 
 public interface QuotationService {
     public List<City> listAllCities();
-    public float getPrice(QuotationRequest quotationRequest);
+    public BigDecimal getPrice(QuotationRequest quotationRequest);
 }
