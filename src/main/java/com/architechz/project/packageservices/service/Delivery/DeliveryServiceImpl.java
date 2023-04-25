@@ -35,14 +35,13 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public BigDecimal programDelivery(Long originId,
-                                      Long desinationId,
-                                      String type,
-                                      Date arriveDate,
-                                      List<Product> products){
+            Long desinationId,
+            String type,
+            Date arriveDate,
+            List<Product> products) {
 
         Optional<City> originCity = cityRepository.findById(originId);
         Optional<City> destinationCity = cityRepository.findById(desinationId);
-
 
         List<Warehouse> warehouses = warehouseRepository.findByCityId(originId);
         Warehouse warehouse = warehouses.get(0);
@@ -98,25 +97,26 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Transactional
-    public String deleteDelivery(Delivery delivery){
+    public String deleteDelivery(Delivery delivery) {
         try {
-            
-            deliveryRepository.deleteById(delivery.getId());
 
+            deliveryRepository.deleteById(delivery.getId());
 
         } catch (Exception e) {
             return e.toString();
         }
-        
 
-
-        return "Envío con id " + delivery.getId() +"  ha sido borrado con exito!";
-
+        return "Envío con id " + delivery.getId() + "  ha sido borrado con exito!";
 
     }
 
     @Override
-    public List<Delivery> listAllDeliverys() {
+    public List<Delivery> listAllDeliveries() {
         return this.deliveryRepository.findAll();
+    }
+
+    @Override
+    public List<Delivery> listAllDeliveriesByIdDriver(Long idDriver) {
+        return this.deliveryRepository.findAllDeliveriesByIdDriver(idDriver);
     }
 }
