@@ -9,9 +9,9 @@ public class QuotationRequest {
     private City originCity;
     private City destinationCity;
     private float weight;
-    private String originDate;
-    private String destinationDate;
     private int volume;
+    private String dateArrive;
+    private String dateDeparture;
     public String getLoadType() {
         return loadType;
     }
@@ -36,22 +36,23 @@ public class QuotationRequest {
     public void setWeight(float weight) {
         this.weight = weight;
     }
-    public String getOriginDate() {
-        return originDate;
-    }
-    public void setOriginDate(String originDate) {
-        this.originDate = originDate;
-    }
-    public String getDestinationDate() {
-        return destinationDate;
-    }
-    public void setDestinationDate(String destinationDate) {
-        this.destinationDate = destinationDate;
-    }
     public int getVolume() {
         return volume;
     }
     public void setVolume(int volume) {
         this.volume = volume;
     }
+    public String getDateArrive() {
+        return dateArrive;
+    }
+    public void setDateArrive(String dateArrive) {
+        this.dateArrive = dateArrive;
+    }
+    public String getDateDeparture() {
+        return dateDeparture;
+    }
+    public void setDateDeparture(String dateDeparture) {
+        this.dateDeparture = dateDeparture;
+    }
+ 
 }
