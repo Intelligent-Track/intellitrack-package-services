@@ -34,10 +34,10 @@ public class DeliveryController {
 
     @PostMapping("/program")
     public BigDecimal programDelivery(@RequestParam("originId") Long originId,
-                                      @RequestParam("destinationId") Long destinationId,
-                                      @RequestParam("type") String type,
-                                      @RequestParam("arriveDate") String arriveDate,
-                                      @RequestBody List<Product> products) throws ParseException {
+            @RequestParam("destinationId") Long destinationId,
+            @RequestParam("type") String type,
+            @RequestParam("arriveDate") String arriveDate,
+            @RequestBody List<Product> products) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate = formatter.parse(arriveDate);
@@ -46,13 +46,17 @@ public class DeliveryController {
 
     @GetMapping("/allDeliveriesProgramed")
     public List<Delivery> getAllDelivery() {
-        return this.deliveryService.listAllDeliverys();
+        return this.deliveryService.listAllDeliveries();
     }
 
     @DeleteMapping("/cancelDelivery")
     public ResponseEntity<?> deleteDelivery(@Valid @RequestBody Delivery delivery) {
         return ResponseEntity.ok(new MessageResponse(deliveryService.deleteDelivery(delivery)));
-      }
+    }
 
+    @GetMapping("/deliveriesByDriverId/{id}")
+    public List<Delivery> getDeliveriesById(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriver(id);
+    }
 
 }

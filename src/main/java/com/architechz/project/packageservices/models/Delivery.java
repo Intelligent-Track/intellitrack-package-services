@@ -55,11 +55,16 @@ public class Delivery {
     @JsonIgnore
     private List<Package> articles;
 
+    @NotNull
+    private Long idDriver;
+
     public Delivery() {
     }
 
-    public Delivery(Long id, @NotBlank String origin, @NotBlank String destination, @NotNull Date departureDate, @NotNull Date arriveDate,
-            BigDecimal costPerTon, BigDecimal travelCost, @NotNull Status status, @NotBlank String type) {
+    public Delivery(Long id, @NotBlank String origin, @NotBlank String destination, @NotNull Date departureDate,
+            @NotNull Date arriveDate,
+            BigDecimal costPerTon, BigDecimal travelCost, @NotNull Status status, @NotBlank String type,
+            @NotNull Long idDriver) {
         this.id = id;
         this.origin = origin;
         this.destination = destination;
@@ -69,6 +74,7 @@ public class Delivery {
         this.travelCost = travelCost;
         this.status = status;
         this.type = type;
+        this.idDriver = idDriver;
     }
 
     public Long getId() {
@@ -127,13 +133,21 @@ public class Delivery {
         this.status = status;
     }
 
-    public Date getArriveDate() {return arriveDate;}
+    public Date getArriveDate() {
+        return arriveDate;
+    }
 
-    public void setArriveDate(Date arriveDate) {this.arriveDate = arriveDate;}
+    public void setArriveDate(Date arriveDate) {
+        this.arriveDate = arriveDate;
+    }
 
-    public String getType() {return type;}
+    public String getType() {
+        return type;
+    }
 
-    public void setType(String type) {this.type = type;}
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public List<Product> getProducts() {
         return products;
@@ -143,7 +157,20 @@ public class Delivery {
         this.products = products;
     }
 
-    public void setArticles(List<Package> packages) {
-
+    public List<Package> getArticles() {
+        return articles;
     }
+
+    public void setArticles(List<Package> articles) {
+        this.articles = articles;
+    }
+
+    public Long getIdDriver() {
+        return idDriver;
+    }
+
+    public void setIdDriver(Long idDriver) {
+        this.idDriver = idDriver;
+    }
+
 }
