@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.architechz.project.packageservices.models.City;
-import com.architechz.project.packageservices.models.Package;
 import com.architechz.project.packageservices.models.Type;
+import com.architechz.project.packageservices.models.Package;
 import com.architechz.project.packageservices.models.Warehouse;
 import com.architechz.project.packageservices.payload.InsertionRequest.WarehouseRequest;
 import com.architechz.project.packageservices.repository.CityRepository;
@@ -143,6 +143,23 @@ public class WarehouseServiceImpl implements WarehouseService {
             }
         }
         return searchWarehouses;
+    }
+
+    @Override
+    public List<Package> listAllPackageinWarehouse(Long id) {
+        Warehouse warehouse = this.warehouseRepository.findById(id).orElseThrow();
+        return warehouse.getInventory();
+    }
+
+    @Override
+    public void addPackageInWarehouse(Long wareId, List<Package> packs) {
+        Warehouse warehouse = this.warehouseRepository.findById(wareId).orElseThrow();
+        for (Package packi : packs) {
+            packi.setWarehouse(warehouse);
+        }
+        this.packageRepository.saveAll(packs);
+        warehouse.getInventory().addAll(packs);
+        this.warehouseRepository.save(warehouse);
     }
 
 }

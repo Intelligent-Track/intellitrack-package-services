@@ -2,6 +2,7 @@ package com.architechz.project.packageservices.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,7 +26,7 @@ public class Package {
     @NotBlank
     private String type;
 
-    @NotBlank
+    @NotNull
     private int idClient;
 
     @ManyToOne

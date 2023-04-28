@@ -24,4 +24,9 @@ public class PackageServiceImpl implements PackageService {
         return packageRepository.findAllByDeliveryId(id);
     }
 
+    @Override
+    public List<Package> listAllPackagesByIdClient(int id) {
+        return packageRepository.findAllByIdClient(id);
+    }
+
 }

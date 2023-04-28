@@ -13,4 +13,6 @@ public interface PackageRepository extends JpaRepository<Package, Long> {
     Boolean existsByType(String type);
 
     public List<Package> findAllByDeliveryId(Long id);
+
+    public List<Package> findAllByIdClient(int id);
 }
