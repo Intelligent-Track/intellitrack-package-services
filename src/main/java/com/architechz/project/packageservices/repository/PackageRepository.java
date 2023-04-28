@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface PackageRepository extends JpaRepository<Package, Long> {
 
+    Boolean existsByType(String type);
+
     public List<Package> findAllByDeliveryId(Long id);
 }
