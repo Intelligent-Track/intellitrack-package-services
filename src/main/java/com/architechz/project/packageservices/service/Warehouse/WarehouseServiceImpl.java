@@ -156,9 +156,9 @@ public class WarehouseServiceImpl implements WarehouseService {
         Warehouse warehouse = this.warehouseRepository.findById(wareId).orElseThrow();
         for (Package packi : packs) {
             packi.setWarehouse(warehouse);
+            Package packo = this.packageRepository.save(packi);
+            warehouse.getInventory().add(packo);
         }
-        this.packageRepository.saveAll(packs);
-        warehouse.getInventory().addAll(packs);
         this.warehouseRepository.save(warehouse);
     }
 
