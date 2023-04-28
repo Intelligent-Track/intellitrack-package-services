@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class WarehouseRequest {
-    
+
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;
@@ -21,16 +21,14 @@ public class WarehouseRequest {
     @NotBlank
     private String address;
 
-    
     private double capacity;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
     private Type type;
 
-    
     private BigDecimal costPerM3;
-    
+
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Package> inventory;
