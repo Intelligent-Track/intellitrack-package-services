@@ -18,7 +18,7 @@ public class Package {
 
     private double weight;
 
-    private double volume;
+    private BigDecimal volume;
 
     @NotBlank
     private String location;
@@ -40,7 +40,7 @@ public class Package {
     public Package() {
     }
 
-    public Package(Long id, double weight, double volume, @NotBlank String location,
+    public Package(Long id, double weight, BigDecimal volume, @NotBlank String location,
             @NotBlank String type) {
         this.id = id;
         this.weight = weight;
@@ -75,11 +75,11 @@ public class Package {
         this.weight = weight;
     }
 
-    public double getVolume() {
+    public BigDecimal getVolume() {
         return volume;
     }
 
-    public void setVolume(double volume) {
+    public void setVolume(BigDecimal volume) {
         this.volume = volume;
     }
 
