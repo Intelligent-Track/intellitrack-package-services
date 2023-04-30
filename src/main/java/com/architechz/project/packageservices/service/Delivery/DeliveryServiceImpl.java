@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
@@ -35,10 +36,10 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public BigDecimal programDelivery(Long originId,
-                                      Long desinationId,
-                                      String type,
-                                      Date arriveDate,
-                                      List<Product> products){
+            Long desinationId,
+            String type,
+            Date arriveDate,
+            List<Product> products) {
 
         Optional<City> originCity = cityRepository.findById(originId);
         Optional<City> destinationCity = cityRepository.findById(desinationId);
@@ -110,17 +111,100 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Transactional
-    public String deleteDelivery(Delivery delivery){
+    public String deleteDelivery(Delivery delivery) {
         try {
+
             deliveryRepository.deleteById(delivery.getId());
+
         } catch (Exception e) {
             return e.toString();
         }
-        return "Envío con id " + delivery.getId() +"  ha sido borrado con exito!";
+
+        return "Envío con id " + delivery.getId() + "  ha sido borrado con exito!";
+
     }
 
     @Override
-    public List<Delivery> listAllDeliverys() {
+    public String editDelivery(Delivery delivery) {
+        if (delivery.getStatus()!=Status.IN_WAREHOUSE) {
+            return "Error: El envio con id " + delivery.getId()
+                    + " se encuantra en un estado diderente a IN_WAREHOUSE!";
+        } else {
+            try {
+
+                Delivery deliveryEdited = this.findById(delivery.getId());
+
+                
+                
+                deliveryEdited.setArriveDate(delivery.getArriveDate());
+                deliveryEdited.setDepartureDate(delivery.getDepartureDate());
+                deliveryEdited.setComments(delivery.getComments());
+
+
+                deliveryRepository.save(deliveryEdited);
+
+            } catch (Exception e) {
+                return e.toString();
+            }
+
+            return "Envio actualizada con exito!!";
+        }
+
+    }
+
+    @Override
+    public List<Delivery> listAllDeliveries() {
         return this.deliveryRepository.findAll();
+    }
+
+    @Override
+    public List<Delivery> listAllDeliveriesByIdDriver(Long idDriver) {
+        return this.deliveryRepository.findAllDeliveriesByIdDriver(idDriver);
+    }
+    
+    @Override
+    public List<Delivery> listAllDeliveriesInWarehouse(String nit){
+        List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
+
+        for (Delivery delivery : allDeliveriesByNit) {
+            if(!delivery.getStatus().equals(Status.IN_WAREHOUSE)){
+                allDeliveriesByNit.remove(delivery);
+            }
+        }
+        return allDeliveriesByNit;
+    };
+
+    @Override
+    public List<Delivery> listAllDeliveriesOnTheWay(String nit){
+        List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
+
+        for (Delivery delivery : allDeliveriesByNit) {
+            if(!delivery.getStatus().equals(Status.ON_THE_WAY)){
+                allDeliveriesByNit.remove(delivery);
+            }
+        }
+        return allDeliveriesByNit;
+    };
+    @Override
+    public List<Delivery> listAllDeliveriesDelivered(String nit){
+        List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
+
+        for (Delivery delivery : allDeliveriesByNit) {
+            if(!delivery.getStatus().equals(Status.DELIVERED)){
+                allDeliveriesByNit.remove(delivery);
+            }
+        }
+        return allDeliveriesByNit;
+    };
+
+    @Override
+    public Delivery findById(Long id) {
+        return this.deliveryRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public List<Delivery> getAllDeliveriesByNit(String nit) {
+        System.out.println(nit);
+        return this.deliveryRepository.findAllDeliveriesByNit(nit);
     }
 }

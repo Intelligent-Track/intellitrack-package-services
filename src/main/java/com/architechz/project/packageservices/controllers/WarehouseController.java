@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.architechz.project.packageservices.models.City;
+import com.architechz.project.packageservices.models.Package;
 import com.architechz.project.packageservices.models.Type;
 import com.architechz.project.packageservices.models.Warehouse;
+import com.architechz.project.packageservices.payload.InsertionRequest.PackageWarehouseRequest;
 import com.architechz.project.packageservices.payload.InsertionRequest.WarehouseRequest;
 import com.architechz.project.packageservices.payload.response.MessageResponse;
 import com.architechz.project.packageservices.service.Warehouse.WarehouseService;
@@ -33,17 +36,17 @@ public class WarehouseController {
 
     @PostMapping("/warehouseCreate")
     public ResponseEntity<?> addWarehouse(@Valid @RequestBody WarehouseRequest warehouseRequest) {
-      return ResponseEntity.ok().body(warehouseService.addWarehouse(warehouseRequest));
+        return ResponseEntity.ok().body(warehouseService.addWarehouse(warehouseRequest));
     }
 
     @DeleteMapping("/deleteWarehouse")
     public ResponseEntity<?> deleteWarehouse(@Valid @RequestBody WarehouseRequest warehouseRequest) {
-      return ResponseEntity.ok(new MessageResponse(warehouseService.deleteWarehouse(warehouseRequest)));
+        return ResponseEntity.ok(new MessageResponse(warehouseService.deleteWarehouse(warehouseRequest)));
     }
-    
+
     @PutMapping("/updateWarehouse")
     public ResponseEntity<?> editWarehouse(@Valid @RequestBody Warehouse warehouse) {
-      return ResponseEntity.ok(new MessageResponse(warehouseService.editWarehouse(warehouse)));
+        return ResponseEntity.ok(new MessageResponse(warehouseService.editWarehouse(warehouse)));
     }
 
     @GetMapping("/allCities")
@@ -57,7 +60,7 @@ public class WarehouseController {
     }
 
     @GetMapping("/warehouse/{id}")
-    public Warehouse getWarehouseById(@PathVariable("id") Long id){
+    public Warehouse getWarehouseById(@PathVariable("id") Long id) {
         return this.warehouseService.findById(id);
     }
 
@@ -79,6 +82,16 @@ public class WarehouseController {
     @GetMapping("/allWarehousesByCapacity/{capacity}")
     public List<Warehouse> getAllWarehousesByCapacity(@PathVariable("capacity") double capacity) {
         return this.warehouseService.listAllWarehousesByCapacity(capacity);
+    }
+
+    @GetMapping("/pack-warehouse/{id}")
+    public List<Package> getPackagesByIdWarehouse(@PathVariable("id") Long id) {
+        return this.warehouseService.listAllPackageinWarehouse(id);
+    }
+
+    @PutMapping("/warehouse-package")
+    public void addPackageInWarehouse(@RequestBody PackageWarehouseRequest dtowarepack) {
+        this.warehouseService.addPackageInWarehouse(dtowarepack.getWarehouseId(), dtowarepack.getPackages());
     }
 
 }

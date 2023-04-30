@@ -70,7 +70,6 @@ public class QuotationServiceImpl implements QuotationService {
             }
                 
         }
-        System.out.println(costoRuta);
         
         costPerTon= costoRuta+(aditionalCost*hoursWaitting);
         cost=costPerTon*truckTypeFactor*(weigh);

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,10 +35,10 @@ public class DeliveryController {
 
     @PostMapping("/program")
     public BigDecimal programDelivery(@RequestParam("originId") Long originId,
-                                      @RequestParam("destinationId") Long destinationId,
-                                      @RequestParam("type") String type,
-                                      @RequestParam("arriveDate") String arriveDate,
-                                      @RequestBody List<Product> products) throws ParseException {
+            @RequestParam("destinationId") Long destinationId,
+            @RequestParam("type") String type,
+            @RequestParam("arriveDate") String arriveDate,
+            @RequestBody List<Product> products) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate = formatter.parse(arriveDate);
@@ -46,13 +47,43 @@ public class DeliveryController {
 
     @GetMapping("/allDeliveriesProgramed")
     public List<Delivery> getAllDelivery() {
-        return this.deliveryService.listAllDeliverys();
+        return this.deliveryService.listAllDeliveries();
     }
 
     @DeleteMapping("/cancelDelivery")
     public ResponseEntity<?> deleteDelivery(@Valid @RequestBody Delivery delivery) {
         return ResponseEntity.ok(new MessageResponse(deliveryService.deleteDelivery(delivery)));
-      }
+    }
 
+    @PutMapping("/updateDelivery")
+    public ResponseEntity<?> editWarehouse(@Valid @RequestBody Delivery delivery) {
+        return ResponseEntity.ok(new MessageResponse(deliveryService.editDelivery(delivery)));
+    }
+
+    @GetMapping("/deliveriesByDriverId/{id}")
+    public List<Delivery> getDeliveriesById(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriver(id);
+    }
+
+    @GetMapping("/deliveriesByNit/{nit}")
+    public List<Delivery> getDeliveriesByNit(@PathVariable String nit){
+        System.out.println(nit);
+        return this.deliveryService.getAllDeliveriesByNit(nit);
+    }
+
+    @GetMapping("/deliveriesInWarehouse/{nit}")
+    public List<Delivery> getDeliveriesInWarehouse(@Valid @PathVariable String nit){
+        return this.deliveryService.listAllDeliveriesInWarehouse(nit);
+    }
+
+    @GetMapping("/deliveriesOnTheWay/{nit}")
+    public List<Delivery> getDeliveriesOnTheWay(@Valid @PathVariable String nit){
+        return this.deliveryService.listAllDeliveriesOnTheWay(nit);
+    }
+
+    @GetMapping("/deliveriesDelivered/{nit}")
+    public List<Delivery> getDeliveriesDelivered(@Valid @PathVariable String nit){
+        return this.deliveryService.listAllDeliveriesDelivered(nit);
+    }
 
 }

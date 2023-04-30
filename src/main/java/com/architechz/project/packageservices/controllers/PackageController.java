@@ -30,4 +30,9 @@ public class PackageController {
         return packageService.listAllPackagesByDeliveryId(id);
     }
 
+    @GetMapping("/packagesByClientId/{id}")
+    public List<Package> getAllPackagesByClientId(@PathVariable int id) {
+        return packageService.listAllPackagesByIdClient(id);
+    }
+
 }
