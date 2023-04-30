@@ -43,9 +43,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         Optional<City> originCity = cityRepository.findById(originId);
         Optional<City> destinationCity = cityRepository.findById(desinationId);
 
-
         List<Warehouse> warehouses = warehouseRepository.findByCityId(originId);
-        Warehouse warehouse = warehouses.get(0);
 
         List<Package> packages = new ArrayList<>();
         BigDecimal totalWeight = BigDecimal.ZERO;
@@ -55,9 +53,23 @@ public class DeliveryServiceImpl implements DeliveryService {
             packageItem.setType(product.getCategory());
             packageItem.setVolume(product.getVolume());
             packageItem.setLocation(originCity.get().getName());
-            packageItem.setWarehouse(warehouse);
             packages.add(packageItem);
             totalWeight = totalWeight.add(BigDecimal.valueOf(product.getWeight()));
+        }
+
+        Warehouse warehouse = null;
+        for (Warehouse w : warehouses) {
+            if (w.hasEnoughSpace(packages)) {
+                warehouse = w;
+                break;
+            }
+        }
+        if (warehouse == null) {
+            return null;
+        }
+
+        for(Package p: packages){
+            p.setWarehouse(warehouse);
         }
 
         BigDecimal costPerTon = BigDecimal.valueOf(100000);
@@ -78,7 +90,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         for (int i = 0; i < savedPackages.size(); i++) {
             savedPackages.get(i).setDelivery(delivery);
             savedPackages.get(i).setDeliveryCost(deliveryCost.divide(BigDecimal.valueOf(savedPackages.size())));
-            packages.set(i, savedPackages.get(i)); // actualizar lista original
+            packages.set(i, savedPackages.get(i));
         }
 
         delivery = deliveryRepository.save(delivery);
@@ -87,9 +99,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
 
         for (Product product : products) {
-            Long lastId = productRespository.getLastId(); // Obtener último id guardado
-            Long newId = lastId != null ? lastId + 1 : 1; // Sumar uno al último id o asignar 1 si es el primer producto
-            product.setId(newId); // Asignar nuevo id al producto
+            Long lastId = productRespository.getLastId();
+            Long newId = (Long) (lastId != null ? lastId + 1 : 1);
+            product.setId(newId);
             product.setDelivery(delivery);
             productRespository.save(product);
         }
@@ -100,19 +112,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Transactional
     public String deleteDelivery(Delivery delivery){
         try {
-            
             deliveryRepository.deleteById(delivery.getId());
-
-
         } catch (Exception e) {
             return e.toString();
         }
-        
-
-
         return "Envío con id " + delivery.getId() +"  ha sido borrado con exito!";
-
-
     }
 
     @Override

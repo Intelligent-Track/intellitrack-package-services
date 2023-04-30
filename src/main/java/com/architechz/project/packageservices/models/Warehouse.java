@@ -126,4 +126,20 @@ public class Warehouse {
         this.inventory = inventory;
     }
 
+    public boolean hasEnoughSpace(List<Package> packages) {
+        BigDecimal totalVolume = BigDecimal.ZERO;
+        for (Package p : packages) {
+            totalVolume = totalVolume.add(p.getVolume());
+        }
+        BigDecimal availableSpace = BigDecimal.valueOf(capacity).subtract(getOccupiedSpace());
+        return totalVolume.compareTo(availableSpace) <= 0;
+    }
+
+    private BigDecimal getOccupiedSpace() {
+        BigDecimal occupiedSpace = BigDecimal.ZERO;
+        for (Package p : inventory) {
+            occupiedSpace = occupiedSpace.add(p.getVolume());
+        }
+        return occupiedSpace;
+    }
 }
