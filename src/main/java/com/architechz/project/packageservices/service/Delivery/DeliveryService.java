@@ -17,4 +17,16 @@ public interface DeliveryService {
 
     public List<Delivery> listAllDeliveriesByIdDriver(Long idDriver);
 
+    public List<Delivery> getAllDeliveriesByNit(String nit);
+    
+    public Delivery findById(Long id);
+
+    public String editDelivery(Delivery delivery);
+
+    public List<Delivery> listAllDeliveriesInWarehouse(String nit);
+    
+    public List<Delivery> listAllDeliveriesOnTheWay(String nit);
+    
+    public List<Delivery> listAllDeliveriesDelivered(String nit);
+
 }
