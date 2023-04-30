@@ -36,8 +36,6 @@ public class Delivery {
 
     private Date arriveDate;
 
-    @NotBlank
-    private String type;
 
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal costPerTon;
@@ -48,6 +46,18 @@ public class Delivery {
     @NotNull
     private Status status;
 
+    @NotBlank
+    private String type;
+
+    @NotNull
+    private Long idDriver;
+
+    @NotNull
+    private String nit;
+
+    private String comments;
+
+
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
     private List<Product> products;
 
@@ -55,16 +65,15 @@ public class Delivery {
     @JsonIgnore
     private List<Package> articles;
 
-    @NotNull
-    private Long idDriver;
+
+
 
     public Delivery() {
     }
 
     public Delivery(Long id, @NotBlank String origin, @NotBlank String destination, @NotNull Date departureDate,
-            @NotNull Date arriveDate,
-            BigDecimal costPerTon, BigDecimal travelCost, @NotNull Status status, @NotBlank String type,
-            @NotNull Long idDriver) {
+            @NotNull Date arriveDate,BigDecimal costPerTon, BigDecimal travelCost, @NotNull Status status, @NotBlank String type,
+            @NotNull Long idDriver,  @NotNull String nit, String comments) {
         this.id = id;
         this.origin = origin;
         this.destination = destination;
@@ -75,6 +84,8 @@ public class Delivery {
         this.status = status;
         this.type = type;
         this.idDriver = idDriver;
+        this.nit = nit;
+        this.comments = comments;
     }
 
     public Long getId() {
@@ -172,5 +183,22 @@ public class Delivery {
     public void setIdDriver(Long idDriver) {
         this.idDriver = idDriver;
     }
+
+    public String getNit() {
+        return nit;
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+    
 
 }
