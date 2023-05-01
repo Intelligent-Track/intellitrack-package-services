@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.architechz.project.packageservices.models.City;
@@ -42,6 +42,16 @@ public class WarehouseController {
     @DeleteMapping("/deleteWarehouse")
     public ResponseEntity<?> deleteWarehouse(@Valid @RequestBody WarehouseRequest warehouseRequest) {
         return ResponseEntity.ok(new MessageResponse(warehouseService.deleteWarehouse(warehouseRequest)));
+    }
+
+    @DeleteMapping("/warehouse/{id}")
+    public ResponseEntity<?> deleteWarehouseById(@PathVariable("id") Long id){
+        boolean result = this.warehouseService.deleteWarehouseById(id);
+        if (result) {
+            return ResponseEntity.ok(new MessageResponse("Warehouse deleted"));
+        }else{
+            return new ResponseEntity<>(new MessageResponse("Entity not found"), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/updateWarehouse")
@@ -92,6 +102,16 @@ public class WarehouseController {
     @PutMapping("/warehouse-package")
     public void addPackageInWarehouse(@RequestBody PackageWarehouseRequest dtowarepack) {
         this.warehouseService.addPackageInWarehouse(dtowarepack.getWarehouseId(), dtowarepack.getPackages());
+    }
+
+    @DeleteMapping("/warehouse-package/{wareId}/{packId}")
+    public ResponseEntity<?> deletePackageInWarehouse(@PathVariable("wareId") Long wareId, @PathVariable("packId") Long packId) {
+        boolean result = this.warehouseService.deletePackageInWarehouse(wareId, packId);
+        if (result) {
+            return ResponseEntity.ok(new MessageResponse("Package in warehouse deleted"));
+        }else{
+            return new ResponseEntity<>(new MessageResponse("Entity not found"), HttpStatus.NOT_FOUND);
+        }
     }
 
 }

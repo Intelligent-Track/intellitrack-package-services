@@ -76,7 +76,7 @@ public class Package {
     }
 
     public double getVolume() {
-        return (volume);
+        return volume;
     }
 
     public void setVolume(double volume) {

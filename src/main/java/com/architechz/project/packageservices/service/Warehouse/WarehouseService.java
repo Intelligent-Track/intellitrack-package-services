@@ -10,11 +10,13 @@ import com.architechz.project.packageservices.payload.InsertionRequest.Warehouse
 
 public interface WarehouseService {
 
-    public abstract String addWarehouse(WarehouseRequest warehouseRequest);
+    public String addWarehouse(WarehouseRequest warehouseRequest);
 
-    public abstract String deleteWarehouse(WarehouseRequest warehouseRequest);
+    public String deleteWarehouse(WarehouseRequest warehouseRequest);
 
-    public abstract String editWarehouse(Warehouse warehouse);
+    public boolean deleteWarehouseById(Long id);
+
+    public String editWarehouse(Warehouse warehouse);
 
     public List<City> listAllCities();
 
@@ -33,5 +35,7 @@ public interface WarehouseService {
     public List<Package> listAllPackageinWarehouse(Long id);
 
     public void addPackageInWarehouse(Long wareId, List<Package> packs);
+
+    public boolean deletePackageInWarehouse(Long wareId, Long packId);
 
 }
