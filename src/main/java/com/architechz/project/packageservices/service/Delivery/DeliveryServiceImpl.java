@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
@@ -36,72 +33,78 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public BigDecimal programDelivery(Long originId,
-            Long desinationId,
-            String type,
-            Date arriveDate,
-            List<Product> products) {
+                                      Long destinationId,
+                                      String type,
+                                      Date arriveDate,
+                                      Date departureDate,
+                                      String comments,
+                                      List<Product> products) {
 
         Optional<City> originCity = cityRepository.findById(originId);
-        Optional<City> destinationCity = cityRepository.findById(desinationId);
+        Optional<City> destinationCity = cityRepository.findById(destinationId);
 
-        List<Warehouse> warehouses = warehouseRepository.findByCityId(originId);
+        List<Warehouse> warehouse = warehouseRepository.findByCityId(originId);
+
+        if (warehouse.isEmpty()) {
+            return null;
+        }
+
+        double totalWeight = 0;
+        double totalVolume = 0;
 
         List<Package> packages = new ArrayList<>();
-        BigDecimal totalWeight = BigDecimal.ZERO;
+
         for (Product product : products) {
+            totalWeight = totalWeight + product.getWeight();
+            totalVolume = totalVolume + product.getVolume();
+
             Package packageItem = new Package();
             packageItem.setWeight(product.getWeight());
             packageItem.setType(product.getCategory());
             packageItem.setVolume(product.getVolume());
             packageItem.setLocation(originCity.get().getName());
+            packageItem.setWarehouse(warehouse.get(0));
             packages.add(packageItem);
-            totalWeight = totalWeight.add(BigDecimal.valueOf(product.getWeight()));
-        }
-
-        Warehouse warehouse = null;
-        for (Warehouse w : warehouses) {
-            if (w.hasEnoughSpace(packages)) {
-                warehouse = w;
-                break;
-            }
-        }
-        if (warehouse == null) {
-            return null;
-        }
-
-        for(Package p: packages){
-            p.setWarehouse(warehouse);
         }
 
         BigDecimal costPerTon = BigDecimal.valueOf(100000);
         BigDecimal deliveryCost = BigDecimal.valueOf(500000);
-        BigDecimal travelCost = costPerTon.multiply(totalWeight).add(deliveryCost);
+        BigDecimal travelCost = costPerTon.multiply(BigDecimal.valueOf(totalWeight)).add(deliveryCost);
 
+        int number = generateRandomNumber(0, 20);
+        int nit = generateRandomNumber(0, 10000);
         Delivery delivery = new Delivery();
         delivery.setOrigin(originCity.get().getName());
         delivery.setDestination(destinationCity.get().getName());
         delivery.setArriveDate(arriveDate);
+        delivery.setDepartureDate(departureDate);
+        delivery.setIdDriver((long) number);
+        delivery.setNit(String.valueOf(nit));
         delivery.setCostPerTon(costPerTon);
         delivery.setTravelCost(travelCost);
         delivery.setStatus(Status.IN_WAREHOUSE);
         delivery.setType(type);
+        delivery.setComments(comments);
         delivery.setArticles(packages);
 
         List<Package> savedPackages = packageRepository.saveAll(packages);
+        BigDecimal packageDeliveryCost = deliveryCost.divide(BigDecimal.valueOf(savedPackages.size()));
         for (int i = 0; i < savedPackages.size(); i++) {
-            savedPackages.get(i).setDelivery(delivery);
-            savedPackages.get(i).setDeliveryCost(deliveryCost.divide(BigDecimal.valueOf(savedPackages.size())));
-            packages.set(i, savedPackages.get(i));
+            Package savedPackage = savedPackages.get(i);
+            savedPackage.setDelivery(delivery);
+            savedPackage.setDeliveryCost(packageDeliveryCost);
+            packages.set(i, savedPackage);
         }
 
         delivery = deliveryRepository.save(delivery);
+
         for (Package packageItem : packages) {
-            packageItem = packageRepository.save(packageItem);
+            packageRepository.save(packageItem);
         }
 
         for (Product product : products) {
             Long lastId = productRespository.getLastId();
-            Long newId = (Long) (lastId != null ? lastId + 1 : 1);
+            Long newId = (lastId != null ? lastId + 1 : 1);
             product.setId(newId);
             product.setDelivery(delivery);
             productRespository.save(product);
@@ -109,6 +112,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         return travelCost;
     }
+
+    private int generateRandomNumber(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
+    }
+
 
     @Transactional
     public String deleteDelivery(Delivery delivery) {
