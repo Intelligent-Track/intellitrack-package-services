@@ -12,7 +12,6 @@ import java.util.*;
 
 import javax.transaction.Transactional;
 
-
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
@@ -33,12 +32,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public BigDecimal programDelivery(Long originId,
-                                      Long destinationId,
-                                      String type,
-                                      Date arriveDate,
-                                      Date departureDate,
-                                      String comments,
-                                      List<Product> products) {
+            Long destinationId,
+            String type,
+            Date arriveDate,
+            Date departureDate,
+            String comments,
+            List<Product> products) {
 
         Optional<City> originCity = cityRepository.findById(originId);
         Optional<City> destinationCity = cityRepository.findById(destinationId);
@@ -118,7 +117,6 @@ public class DeliveryServiceImpl implements DeliveryService {
         return random.nextInt(max - min + 1) + min;
     }
 
-
     @Transactional
     public String deleteDelivery(Delivery delivery) {
         try {
@@ -135,7 +133,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public String editDelivery(Delivery delivery) {
-        if (delivery.getStatus()!=Status.IN_WAREHOUSE) {
+        if (delivery.getStatus() != Status.IN_WAREHOUSE) {
             return "Error: El envio con id " + delivery.getId()
                     + " se encuantra en un estado diderente a IN_WAREHOUSE!";
         } else {
@@ -143,12 +141,9 @@ public class DeliveryServiceImpl implements DeliveryService {
 
                 Delivery deliveryEdited = this.findById(delivery.getId());
 
-                
-                
                 deliveryEdited.setArriveDate(delivery.getArriveDate());
                 deliveryEdited.setDepartureDate(delivery.getDepartureDate());
                 deliveryEdited.setComments(delivery.getComments());
-
 
                 deliveryRepository.save(deliveryEdited);
 
@@ -170,40 +165,47 @@ public class DeliveryServiceImpl implements DeliveryService {
     public List<Delivery> listAllDeliveriesByIdDriver(Long idDriver) {
         return this.deliveryRepository.findAllDeliveriesByIdDriver(idDriver);
     }
-    
+
     @Override
-    public List<Delivery> listAllDeliveriesInWarehouse(String nit){
+    public List<Delivery> listAllDeliveriesInWarehouse(String nit) {
         List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
+        List<Delivery> deliveriesInWarehouse = new ArrayList<>();
 
         for (Delivery delivery : allDeliveriesByNit) {
-            if(!delivery.getStatus().equals(Status.IN_WAREHOUSE)){
-                allDeliveriesByNit.remove(delivery);
+            if (delivery.getStatus().equals(Status.IN_WAREHOUSE)) {
+                deliveriesInWarehouse.add(delivery);
             }
         }
-        return allDeliveriesByNit;
+
+        return deliveriesInWarehouse;
     };
 
     @Override
-    public List<Delivery> listAllDeliveriesOnTheWay(String nit){
+    public List<Delivery> listAllDeliveriesOnTheWay(String nit) {
         List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
+        List<Delivery> deliveriesInWarehouse = new ArrayList<>();
 
         for (Delivery delivery : allDeliveriesByNit) {
-            if(!delivery.getStatus().equals(Status.ON_THE_WAY)){
-                allDeliveriesByNit.remove(delivery);
+            if (delivery.getStatus().equals(Status.ON_THE_WAY)) {
+                deliveriesInWarehouse.add(delivery);
             }
         }
-        return allDeliveriesByNit;
+
+        return deliveriesInWarehouse;
     };
+
     @Override
-    public List<Delivery> listAllDeliveriesDelivered(String nit){
+    public List<Delivery> listAllDeliveriesDelivered(String nit) {
         List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
+        List<Delivery> deliveriesInWarehouse = new ArrayList<>();
 
         for (Delivery delivery : allDeliveriesByNit) {
-            if(!delivery.getStatus().equals(Status.DELIVERED)){
-                allDeliveriesByNit.remove(delivery);
+            if (delivery.getStatus().equals(Status.DELIVERED)) {
+                deliveriesInWarehouse.add(delivery);
             }
         }
-        return allDeliveriesByNit;
+
+        return deliveriesInWarehouse;
     };
 
     @Override
@@ -213,7 +215,6 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public List<Delivery> getAllDeliveriesByNit(String nit) {
-        System.out.println(nit);
         return this.deliveryRepository.findAllDeliveriesByNit(nit);
     }
 }

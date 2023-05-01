@@ -70,7 +70,6 @@ public class DeliveryController {
 
     @GetMapping("/deliveriesByNit/{nit}")
     public List<Delivery> getDeliveriesByNit(@PathVariable String nit){
-        System.out.println(nit);
         return this.deliveryService.getAllDeliveriesByNit(nit);
     }
 

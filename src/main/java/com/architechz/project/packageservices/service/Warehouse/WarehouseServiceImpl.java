@@ -1,6 +1,5 @@
 package com.architechz.project.packageservices.service.Warehouse;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +71,15 @@ public class WarehouseServiceImpl implements WarehouseService {
 
         return "Bodega con dirección " + warehouseRequest.getAddress() + "  ha sido borrada con exito!";
 
+    }
+
+    public boolean deleteWarehouseById(Long id){
+        Warehouse warehouse = this.warehouseRepository.findById(id).orElseThrow();
+        if(warehouse == null){
+            return false;
+        }
+        this.warehouseRepository.delete(warehouse);
+        return true;
     }
 
     @Override
@@ -155,12 +163,36 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public void addPackageInWarehouse(Long wareId, List<Package> packs) {
         Warehouse warehouse = this.warehouseRepository.findById(wareId).orElseThrow();
+        double newCapacity = 0;
         for (Package packi : packs) {
             packi.setWarehouse(warehouse);
             Package packo = this.packageRepository.save(packi);
             warehouse.getInventory().add(packo);
+            newCapacity += packo.getVolume();
         }
+        warehouse.setCapacity(warehouse.getCapacity() - newCapacity);
         this.warehouseRepository.save(warehouse);
+    }
+
+    @Override
+    public boolean deletePackageInWarehouse(Long wareId, Long packId) {
+        Warehouse warehouse = this.warehouseRepository.findById(wareId).orElseThrow();
+        if(warehouse == null) {
+            return false;
+        }
+        Package deletedPack = null;
+        for (Package packi : warehouse.getInventory()) {
+            if(packi.getId() == packId) {
+                deletedPack = packi;
+            }
+        }
+        if(deletedPack == null) {
+            return false;
+        }
+        warehouse.getInventory().remove(deletedPack);
+        this.packageRepository.delete(deletedPack);
+        warehouse.setCapacity(warehouse.getCapacity() + deletedPack.getVolume());
+        return true;
     }
 
 }

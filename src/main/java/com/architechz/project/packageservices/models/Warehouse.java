@@ -126,4 +126,20 @@ public class Warehouse {
         this.inventory = inventory;
     }
 
+    public boolean hasEnoughSpace(List<Package> packages) {
+        double totalVolume = 0;
+        for (Package p : packages) {
+            totalVolume += p.getVolume();
+        }
+        double availableSpace = this.capacity - totalVolume;
+        return availableSpace > 0;
+    }
+
+    private double getOccupiedSpace() {
+        double occupation = 0;
+        for (Package p : inventory) {
+            occupation += p.getVolume();
+        }
+        return occupation;
+    }
 }

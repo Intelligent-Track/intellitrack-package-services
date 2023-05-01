@@ -1,7 +1,6 @@
 package com.architechz.project.packageservices.models;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -46,9 +45,13 @@ public class Product {
         this.weight = weight;
     }
 
-    public double getVolume() {return volume;}
+    public double getVolume() {
+        return volume;
+    }
 
-    public void setVolume(double volume) {this.volume = volume;}
+    public void setVolume(double volume) {
+        this.volume = volume;
+    }
 
     public String getName() {
         return name;
