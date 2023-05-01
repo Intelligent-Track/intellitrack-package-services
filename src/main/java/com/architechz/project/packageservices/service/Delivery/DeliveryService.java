@@ -9,7 +9,7 @@ import java.util.List;
 public interface DeliveryService {
 
     public BigDecimal programDelivery(
-            Long originId, Long destinationId, String type, Date arriveDate, List<Product> products);
+            Long originId, Long destinationId, String type, Date arriveDate, Date departureDate, String comments, List<Product> products);
 
     public List<Delivery> listAllDeliveries();
 

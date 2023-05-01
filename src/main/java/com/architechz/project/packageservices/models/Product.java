@@ -46,7 +46,7 @@ public class Product {
         this.weight = weight;
     }
 
-    public BigDecimal getVolume() {return volume;}
+    public double getVolume() {return volume;}
 
     public void setVolume(double volume) {this.volume = volume;}
 
