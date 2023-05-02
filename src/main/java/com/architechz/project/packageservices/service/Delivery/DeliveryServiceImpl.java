@@ -37,6 +37,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             Date arriveDate,
             Date departureDate,
             String comments,
+            String nit,
             List<Product> products) {
 
         Optional<City> originCity = cityRepository.findById(originId);
@@ -71,14 +72,13 @@ public class DeliveryServiceImpl implements DeliveryService {
         BigDecimal travelCost = costPerTon.multiply(BigDecimal.valueOf(totalWeight)).add(deliveryCost);
 
         int number = generateRandomNumber(0, 20);
-        int nit = generateRandomNumber(0, 10000);
         Delivery delivery = new Delivery();
         delivery.setOrigin(originCity.get().getName());
         delivery.setDestination(destinationCity.get().getName());
         delivery.setArriveDate(arriveDate);
         delivery.setDepartureDate(departureDate);
         delivery.setIdDriver((long) number);
-        delivery.setNit(String.valueOf(nit));
+        delivery.setNit(nit);
         delivery.setCostPerTon(costPerTon);
         delivery.setTravelCost(travelCost);
         delivery.setStatus(Status.IN_WAREHOUSE);
