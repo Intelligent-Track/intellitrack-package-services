@@ -55,8 +55,8 @@ public class DeliveryController {
     }
 
     @DeleteMapping("/cancelDelivery")
-    public ResponseEntity<?> deleteDelivery(@Valid @RequestBody Delivery delivery) {
-        return ResponseEntity.ok(new MessageResponse(deliveryService.deleteDelivery(delivery)));
+    public ResponseEntity<?> deleteDelivery(@RequestParam ("deliveryId") Long deliveryId) {
+        return ResponseEntity.ok(deliveryService.deleteDelivery(deliveryId));
     }
 
     @PutMapping("/updateDelivery")
