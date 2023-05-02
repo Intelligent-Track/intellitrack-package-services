@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.*;
 
-import javax.transaction.Transactional;
-
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
@@ -117,17 +115,17 @@ public class DeliveryServiceImpl implements DeliveryService {
         return random.nextInt(max - min + 1) + min;
     }
 
-    @Transactional
-    public String deleteDelivery(Delivery delivery) {
+    @Override
+    public String deleteDelivery(Long deliveryId) {
         try {
 
-            deliveryRepository.deleteById(delivery.getId());
+            deliveryRepository.deleteById(deliveryId);
 
         } catch (Exception e) {
             return e.toString();
         }
 
-        return "Envío con id " + delivery.getId() + "  ha sido borrado con exito!";
+        return "Envío con id ha sido borrado con exito!";
 
     }
 
