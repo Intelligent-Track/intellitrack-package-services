@@ -69,6 +69,21 @@ public class DeliveryController {
         return this.deliveryService.listAllDeliveriesByIdDriver(id);
     }
 
+    @GetMapping("/deliveriesByDriverIdInWarehouse/{id}")
+    public List<Delivery> getDeliveriesByIdInWarehouse(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriverInWarehouse(id);
+    }
+
+    @GetMapping("/deliveriesByDriverIdOnTheWay/{id}")
+    public List<Delivery> getDeliveriesByIdOnTheWay(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriverInWarehouse(id);
+    }
+
+    @GetMapping("/deliveriesByDriverIdDelivered/{id}")
+    public List<Delivery> getDeliveriesByIdDelivered(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriverDelivered(id);
+    }
+
     @GetMapping("/deliveriesByNit/{nit}")
     public List<Delivery> getDeliveriesByNit(@PathVariable String nit){
         return this.deliveryService.getAllDeliveriesByNit(nit);
