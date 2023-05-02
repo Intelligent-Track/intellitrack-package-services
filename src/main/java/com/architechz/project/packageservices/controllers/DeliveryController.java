@@ -54,9 +54,9 @@ public class DeliveryController {
         return this.deliveryService.listAllDeliveries();
     }
 
-    @DeleteMapping("/cancelDelivery")
-    public ResponseEntity<?> deleteDelivery(@RequestParam ("deliveryId") Long deliveryId) {
-        return ResponseEntity.ok(deliveryService.deleteDelivery(deliveryId));
+    @DeleteMapping("/cancelDelivery/{id}")
+    public ResponseEntity<?> deleteDelivery(@PathVariable Long id) {
+        return ResponseEntity.ok(deliveryService.deleteDelivery(id));
     }
 
     @PutMapping("/updateDelivery")
@@ -67,6 +67,21 @@ public class DeliveryController {
     @GetMapping("/deliveriesByDriverId/{id}")
     public List<Delivery> getDeliveriesById(@PathVariable Long id){
         return this.deliveryService.listAllDeliveriesByIdDriver(id);
+    }
+
+    @GetMapping("/deliveriesByDriverIdInWarehouse/{id}")
+    public List<Delivery> getDeliveriesByIdInWarehouse(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriverInWarehouse(id);
+    }
+
+    @GetMapping("/deliveriesByDriverIdOnTheWay/{id}")
+    public List<Delivery> getDeliveriesByIdOnTheWay(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriverInWarehouse(id);
+    }
+
+    @GetMapping("/deliveriesByDriverIdDelivered/{id}")
+    public List<Delivery> getDeliveriesByIdDelivered(@PathVariable Long id){
+        return this.deliveryService.listAllDeliveriesByIdDriverDelivered(id);
     }
 
     @GetMapping("/deliveriesByNit/{nit}")

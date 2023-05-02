@@ -165,6 +165,24 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
+    public List<Delivery> listAllDeliveriesByIdDriverInWarehouse(Long idDriver) {
+        Status status = Status.IN_WAREHOUSE;
+        return deliveryRepository.findAllDeliveriesByIdDriverAndStatus(idDriver, status);
+    }
+
+    @Override
+    public List<Delivery> listAllDeliveriesByIdDriverOnTheWay(Long idDriver) {
+        Status status = Status.ON_THE_WAY;
+        return deliveryRepository.findAllDeliveriesByIdDriverAndStatus(idDriver, status);
+    }
+
+    @Override
+    public List<Delivery> listAllDeliveriesByIdDriverDelivered(Long idDriver) {
+        Status status = Status.DELIVERED;
+        return deliveryRepository.findAllDeliveriesByIdDriverAndStatus(idDriver, status);
+    }
+
+    @Override
     public List<Delivery> listAllDeliveriesInWarehouse(String nit) {
         List<Delivery> allDeliveriesByNit = this.getAllDeliveriesByNit(nit);
         List<Delivery> deliveriesInWarehouse = new ArrayList<>();

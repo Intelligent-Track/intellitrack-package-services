@@ -18,6 +18,12 @@ public interface DeliveryService {
 
     public List<Delivery> listAllDeliveriesByIdDriver(Long idDriver);
 
+    public List<Delivery> listAllDeliveriesByIdDriverInWarehouse(Long idDriver);
+
+    public List<Delivery> listAllDeliveriesByIdDriverOnTheWay(Long idDriver);
+
+    public List<Delivery> listAllDeliveriesByIdDriverDelivered(Long idDriver);
+
     public List<Delivery> getAllDeliveriesByNit(String nit);
     
     public Delivery findById(Long id);
