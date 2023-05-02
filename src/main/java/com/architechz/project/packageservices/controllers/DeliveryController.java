@@ -40,12 +40,13 @@ public class DeliveryController {
             @RequestParam("arriveDate") String arriveDate,
             @RequestParam("departureDate") String departureDate,
             @RequestParam("comments") String comments,
+            @RequestParam("nit") String nit,
             @RequestBody List<Product> products) throws ParseException {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDate = formatter.parse(arriveDate);
         Date finishDate = formatter.parse(departureDate);
-        return this.deliveryService.programDelivery(originId, destinationId, type, parsedDate, finishDate, comments, products);
+        return this.deliveryService.programDelivery(originId, destinationId, type, parsedDate, finishDate, comments, nit, products);
     }
 
     @GetMapping("/allDeliveriesProgramed")
